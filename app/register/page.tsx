@@ -100,7 +100,7 @@ export default function RegisterPage() {
             <label className="text-slate-300">Name</label>
             <input
               className="h-9 w-full rounded-full border border-slate-700 bg-slate-950 px-3 text-xs text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
-              placeholder="Daniel Carter"
+              placeholder="full name"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
