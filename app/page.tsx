@@ -605,11 +605,11 @@ function PostCard(props: {
                 </video>
               ) : (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img
+              <img
                   src={mediaUrl}
-                  alt=""
-                  className="w-full object-cover"
-                />
+                alt=""
+                className="w-full object-cover"
+              />
               )}
             </div>
           )}

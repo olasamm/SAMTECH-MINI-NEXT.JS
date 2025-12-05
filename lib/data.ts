@@ -39,12 +39,12 @@ export function getFeedForUser(userId: string): {
   return { posts: feedPosts, comments: relatedComments };
 }
 
-export function getUsers(): User[] {
-  return getStoredUsers();
+export async function getUsers(): Promise<User[]> {
+  return await getStoredUsers();
 }
 
-export function getUserById(id: string): User | null {
-  return getStoredUserById(id);
+export async function getUserById(id: string): Promise<User | null> {
+  return await getStoredUserById(id);
 }
 
 export function createPost(
@@ -178,8 +178,8 @@ export function toggleFollow(followerId: string, followingId: string) {
   saveData(data);
 }
 
-export function getSuggestionsForUser(userId: string) {
-  const users = getStoredUsers();
+export async function getSuggestionsForUser(userId: string) {
+  const users = await getStoredUsers();
   const data = getData();
   return users.filter(
     (u) =>
@@ -205,22 +205,24 @@ export function markAllNotificationsRead(userId: string) {
   saveData(data);
 }
 
-export function getFollowers(userId: string): User[] {
+export async function getFollowers(userId: string): Promise<User[]> {
   const data = getData();
   const followerIds = data.follows
     .filter((f) => f.followingId === userId)
     .map((f) => f.followerId);
   
-  return getStoredUsers().filter((u) => followerIds.includes(u.id));
+  const users = await getStoredUsers();
+  return users.filter((u) => followerIds.includes(u.id));
 }
 
-export function getFollowing(userId: string): User[] {
+export async function getFollowing(userId: string): Promise<User[]> {
   const data = getData();
   const followingIds = data.follows
     .filter((f) => f.followerId === userId)
     .map((f) => f.followingId);
   
-  return getStoredUsers().filter((u) => followingIds.includes(u.id));
+  const users = await getStoredUsers();
+  return users.filter((u) => followingIds.includes(u.id));
 }
 
 export function getFollowingIds(userId: string): string[] {

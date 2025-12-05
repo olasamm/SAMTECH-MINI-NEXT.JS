@@ -22,7 +22,7 @@ export async function POST(request: Request) {
   const normalizedIdentifier = identifier.trim();
   console.log("Normalized identifier:", normalizedIdentifier);
   
-  const user = findAuthUserByEmailOrHandle(normalizedIdentifier);
+  const user = await findAuthUserByEmailOrHandle(normalizedIdentifier);
   if (!user) {
     console.log("User not found for identifier:", normalizedIdentifier);
     return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });

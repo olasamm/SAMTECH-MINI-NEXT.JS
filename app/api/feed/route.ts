@@ -10,7 +10,7 @@ export async function GET() {
 
   const { posts, comments } = getFeedForUser(user.id);
   const followingUserIds = getFollowingIds(user.id);
-  const users = getUsers();
+  const users = await getUsers();
 
   return NextResponse.json({ posts, comments, users, me: user, followingUserIds });
 }

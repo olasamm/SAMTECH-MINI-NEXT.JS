@@ -10,7 +10,13 @@ export type AppData = {
   idCounter: number;
 };
 
-const DATA_DIR = path.join(process.cwd(), ".data");
+// Match fileStore: use /tmp on Vercel since project dir is read-only there.
+const ROOT_DIR =
+  process.env.VERCEL === "1" || process.env.VERCEL === "true"
+    ? "/tmp"
+    : process.cwd();
+
+const DATA_DIR = path.join(ROOT_DIR, ".data");
 const APP_FILE = path.join(DATA_DIR, "app.json");
 
 function getDefaultData(): AppData {

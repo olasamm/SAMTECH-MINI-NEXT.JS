@@ -12,14 +12,14 @@ export async function GET(
   }
 
   const userId = params.userId;
-  const user = getUserById(userId);
+  const user = await getUserById(userId);
   
   if (!user) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
 
-  const followers = getFollowers(userId);
-  const following = getFollowing(userId);
+  const followers = await getFollowers(userId);
+  const following = await getFollowing(userId);
   const posts = getPostsByUser(userId);
   const isUserFollowing = isFollowing(currentUser.id, userId);
 

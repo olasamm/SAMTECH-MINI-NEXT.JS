@@ -18,7 +18,7 @@ export async function POST(request: Request) {
   }
 
   toggleFollow(user.id, followingId);
-  const users = getUsers();
+  const users = await getUsers();
 
   return NextResponse.json({
     users,

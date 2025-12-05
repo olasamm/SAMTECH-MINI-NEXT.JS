@@ -1,7 +1,13 @@
 import fs from "fs";
 import path from "path";
 
-const DATA_DIR = path.join(process.cwd(), ".data");
+// On Vercel the project directory is read-only. Use /tmp in that environment.
+const ROOT_DIR =
+  process.env.VERCEL === "1" || process.env.VERCEL === "true"
+    ? "/tmp"
+    : process.cwd();
+
+const DATA_DIR = path.join(ROOT_DIR, ".data");
 const USERS_FILE = path.join(DATA_DIR, "users.json");
 
 // Ensure data directory exists

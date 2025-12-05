@@ -24,7 +24,7 @@ export async function POST(
     name?: string;
   };
 
-  const updatedUser = updateUserProfile(userId, { profilePicture, name });
+  const updatedUser = await updateUserProfile(userId, { profilePicture, name });
   
   if (!updatedUser) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });

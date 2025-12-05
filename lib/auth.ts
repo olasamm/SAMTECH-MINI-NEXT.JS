@@ -32,7 +32,7 @@ export async function getCurrentUserFromCookies(): Promise<User | null> {
   console.log("[getCurrentUserFromCookies] userId:", userId);
   if (!userId) return null;
 
-  const authUser = getAuthUserById(userId);
+  const authUser = await getAuthUserById(userId);
   if (!authUser) return null;
 
   const { passwordHash: _p, email: _e, ...user } = authUser;

@@ -47,7 +47,7 @@ export async function POST(request: Request) {
   }
 
   // Check for existing email (explicit)
-  const existingEmail = getAuthUserByEmail(normalizedEmail);
+  const existingEmail = await getAuthUserByEmail(normalizedEmail);
   if (existingEmail) {
     return NextResponse.json(
       { error: "Email already in use" },
@@ -56,7 +56,7 @@ export async function POST(request: Request) {
   }
 
   // Check for existing handle
-  const existingHandle = getAuthUserByHandle(normalizedHandle);
+  const existingHandle = await getAuthUserByHandle(normalizedHandle);
   if (existingHandle) {
     return NextResponse.json(
       { error: "Handle already taken" },
@@ -66,7 +66,7 @@ export async function POST(request: Request) {
 
     try {
       console.log("Creating user...");
-      const user = createAuthUser({
+      const user = await createAuthUser({
         name: (name || "").trim(),
         handle: normalizedHandle,
         email: normalizedEmail,
@@ -77,19 +77,19 @@ export async function POST(request: Request) {
       console.log("User details:", { handle: user.handle, id: user.id });
       
       // Verify user can be found
-      const allUsers = getAllAuthUsers();
+      const allUsers = await getAllAuthUsers();
       console.log("Total users now:", allUsers.length);
       console.log("All users:", allUsers.map(u => ({ email: u.email, handle: u.handle, id: u.id })));
       
       // Try to find the user we just created
-      const verifyByEmail = getAuthUserByEmail(normalizedEmail);
+      const verifyByEmail = await getAuthUserByEmail(normalizedEmail);
       if (verifyByEmail) {
         console.log("✓ User verification: Found by email");
       } else {
         console.log("✗ User verification: NOT found by email!");
       }
 
-      const verifyUserByHandle = getAuthUserByHandle(user.handle);
+      const verifyUserByHandle = await getAuthUserByHandle(user.handle);
       if (verifyUserByHandle) {
         console.log("✓ User verification: Found by handle");
       } else {

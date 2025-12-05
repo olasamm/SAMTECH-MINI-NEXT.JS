@@ -12,7 +12,7 @@ export async function GET() {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   }
   const items = getNotificationsForUser(user.id);
-  const users = getUsers();
+  const users = await getUsers();
   return NextResponse.json({ notifications: items, users });
 }
 
