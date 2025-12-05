@@ -21,6 +21,10 @@ if (!cached) {
 }
 
 export async function connectToDatabase() {
+  if (!MONGODB_URI) {
+    throw new Error("MONGODB_URI environment variable is not defined");
+  }
+  
   const conn = cached;
   if (!conn) throw new Error("Cache not initialized");
   
