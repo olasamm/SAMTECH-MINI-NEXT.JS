@@ -14,7 +14,7 @@ function toAuthUser(doc: UserDocument): AuthUser {
     name: doc.name,
     handle: doc.handle,
     avatarColor: doc.avatarColor ?? "#38bdf8",
-    profilePicture: doc.profilePicture,
+    profilePicture: doc.profilePicture || undefined,
     email: doc.email,
     passwordHash: doc.passwordHash
   };
