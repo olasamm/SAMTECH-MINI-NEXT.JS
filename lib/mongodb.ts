@@ -21,16 +21,19 @@ if (!cached) {
 }
 
 export async function connectToDatabase() {
-  if (cached.conn) {
-    return cached.conn;
+  const conn = cached;
+  if (!conn) throw new Error("Cache not initialized");
+  
+  if (conn.conn) {
+    return conn.conn;
   }
-  if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGODB_URI, {
+  if (!conn.promise) {
+    conn.promise = mongoose.connect(MONGODB_URI, {
       bufferCommands: false
     } as ConnectOptions);
   }
-  cached.conn = await cached.promise;
-  return cached.conn;
+  conn.conn = await conn.promise;
+  return conn.conn;
 }
 
 
